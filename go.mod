@@ -1,3 +1,3 @@
-module github/likebeta/gds
+module github.com/likebeta/gds
 
-go 1.13
+go 1.14

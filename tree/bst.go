@@ -2,7 +2,7 @@ package tree
 
 import (
     "fmt"
-    "github/likebeta/gds/util"
+    "github.com/likebeta/gds/util"
     "strings"
 )
 
@@ -182,8 +182,9 @@ func (t *BSTree) Delete(value interface{}) *BSTree {
                 } else /*if parent.Right == curr */ {
                     parent.Right = node
                 }
-                t.size--
             }
+            t.size--
+            return t
         }
     }
     return t
@@ -199,6 +200,7 @@ func (t *BSTree) deleteWithRecursion(root *BSTNode, value interface{}) *BSTNode 
     } else if v < 0 {
         root.Right = t.deleteWithRecursion(root.Right, value)
     } else {
+        t.size--
         if root.Left == nil {
             return root.Right
         } else if root.Right == nil {
@@ -212,7 +214,6 @@ func (t *BSTree) deleteWithRecursion(root *BSTNode, value interface{}) *BSTNode 
             } else {
                 parent.Right = node.Left
             }
-            t.size--
         }
     }
     return root
@@ -220,12 +221,12 @@ func (t *BSTree) deleteWithRecursion(root *BSTNode, value interface{}) *BSTNode 
 
 func (t *BSTree) String() string {
     var lines []string
-    lines = append(lines, "Binary Search Tree:")
-    formatInOrder(lines, t.root, 0, "H", 17)
-    return strings.Join(lines, "\n") + "\n"
+    lines = append(lines, fmt.Sprintf("Binary Search Tree - %d Node:", t.size))
+    formatInOrder(&lines, t.root, 0, "H", 17)
+    return strings.Join(lines, "\n")
 }
 
-func formatInOrder(lines []string, node *BSTNode, height int, to string, length int) {
+func formatInOrder(lines *[]string, node *BSTNode, height int, to string, length int) {
     if node != nil {
         formatInOrder(lines, node.Right, height+1, "v", length)
         val := fmt.Sprintf("%s%d%s", to, node.Value, to)
@@ -233,7 +234,7 @@ func formatInOrder(lines []string, node *BSTNode, height int, to string, length 
         lenL := (length - lenM) / 2
         lenR := length - lenM - lenL
         val = strings.Repeat(" ", lenL) + val + strings.Repeat(" ", lenR)
-        lines = append(lines, strings.Repeat(" ", height*length)+val)
+        *lines = append(*lines, strings.Repeat(" ", height*length)+val)
         formatInOrder(lines, node.Left, height+1, "^", length)
     }
 }
