@@ -32,7 +32,7 @@ func (t *BSTree) isValid(root *BSTNode, min *BSTNode, max *BSTNode) bool {
     }
     if min != nil && t.Comparator(root.Value, min.Value) <= 0 {
         return false
-    } else if max != nil && t.Comparator(root.Value, max.Value) <= 0 {
+    } else if max != nil && t.Comparator(root.Value, max.Value) >= 0 {
         return false
     }
     return t.isValid(root.Left, min, root) && t.isValid(root.Right, root, max)
