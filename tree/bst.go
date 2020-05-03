@@ -12,8 +12,12 @@ type BSTNode struct {
     Value interface{}
 }
 
+func (node *BSTNode) String() string {
+    return fmt.Sprintf("%v", node.Value)
+}
+
 type BSTree struct {
-    root       *BSTNode
+    Root       *BSTNode
     Comparator util.Comparator
     size       int
 }
@@ -23,7 +27,7 @@ func NewBSTree(comparator util.Comparator) *BSTree {
 }
 
 func (t *BSTree) IsValid() bool {
-    return t.isValid(t.root, nil, nil)
+    return t.isValid(t.Root, nil, nil)
 }
 
 func (t *BSTree) isValid(root *BSTNode, min *BSTNode, max *BSTNode) bool {
@@ -43,12 +47,12 @@ func (t *BSTree) Size() int {
 }
 
 func (t *BSTree) Add(value interface{}) *BSTree {
-    // t.root = t.addWithRecursion(t.root, value)
+    // t.Root = t.addWithRecursion(t.Root, value)
     // return t
-    if t.root == nil {
-        t.root = &BSTNode{Value: value}
+    if t.Root == nil {
+        t.Root = &BSTNode{Value: value}
     } else {
-        pre, curr := t.root, t.root
+        pre, curr := t.Root, t.Root
         var v int
         for curr != nil {
             v = t.Comparator(curr.Value, value)
@@ -86,9 +90,9 @@ func (t *BSTree) addWithRecursion(root *BSTNode, value interface{}) *BSTNode {
 }
 
 func (t *BSTree) Find(value interface{}) bool {
-    // node := t.findWithRecursion(t.root, value)
+    // node := t.findWithRecursion(t.Root, value)
     // return node != nil
-    curr := t.root
+    curr := t.Root
     for curr != nil {
         v := t.Comparator(curr.Value, value)
         if v == 0 {
@@ -103,10 +107,10 @@ func (t *BSTree) Find(value interface{}) bool {
 }
 
 func (t *BSTree) Min() interface{} {
-    if t.root == nil {
+    if t.Root == nil {
         return nil
     }
-    node := t.root
+    node := t.Root
     for node.Left != nil {
         node = node.Left
     }
@@ -114,10 +118,10 @@ func (t *BSTree) Min() interface{} {
 }
 
 func (t *BSTree) Max() interface{} {
-    if t.root == nil {
+    if t.Root == nil {
         return nil
     }
-    node := t.root
+    node := t.Root
     for node.Right != nil {
         node = node.Right
     }
@@ -149,10 +153,10 @@ func (t *BSTree) getLeftMax(node *BSTNode) (*BSTNode, *BSTNode) {
 }
 
 func (t *BSTree) Delete(value interface{}) *BSTree {
-    // t.root = t.deleteWithRecursion(t.root, value)
+    // t.Root = t.deleteWithRecursion(t.Root, value)
     // return t
     var parent *BSTNode
-    curr := t.root
+    curr := t.Root
     for curr != nil {
         v := t.Comparator(curr.Value, value)
         if v > 0 {
@@ -176,7 +180,7 @@ func (t *BSTree) Delete(value interface{}) *BSTree {
                     node = curr.Left
                 }
                 if parent == nil {
-                    t.root = node
+                    t.Root = node
                 } else if parent.Left == curr {
                     parent.Left = node
                 } else /*if parent.Right == curr */ {
@@ -208,7 +212,7 @@ func (t *BSTree) deleteWithRecursion(root *BSTNode, value interface{}) *BSTNode 
         } else {
             parent, node := t.getLeftMax(root)
             root.Value = node.Value
-            // root.Left = t.deleteWithRecursion(root.Left, node.Value)
+            // Root.Left = t.deleteWithRecursion(Root.Left, node.Value)
             if parent == root {
                 parent.Left = node.Left
             } else {
@@ -222,14 +226,14 @@ func (t *BSTree) deleteWithRecursion(root *BSTNode, value interface{}) *BSTNode 
 func (t *BSTree) String() string {
     var lines []string
     lines = append(lines, fmt.Sprintf("Binary Search Tree - %d Node:", t.size))
-    t.formatInOrder(&lines, t.root, 0, "H", 9)
+    t.formatInOrder(&lines, t.Root, 0, "H", 9)
     return strings.Join(lines, "\n")
 }
 
 func (t *BSTree) formatInOrder(lines *[]string, node *BSTNode, height int, to string, length int) {
     if node != nil {
         t.formatInOrder(lines, node.Right, height+1, "v", length)
-        val := fmt.Sprintf("%s%d%s", to, node.Value, to)
+        val := fmt.Sprintf("%s%s%s", to, node.String(), to)
         lenM := len(val)
         lenL := (length - lenM) / 2
         lenR := length - lenM - lenL
