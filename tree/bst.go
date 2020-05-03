@@ -222,19 +222,19 @@ func (t *BSTree) deleteWithRecursion(root *BSTNode, value interface{}) *BSTNode 
 func (t *BSTree) String() string {
     var lines []string
     lines = append(lines, fmt.Sprintf("Binary Search Tree - %d Node:", t.size))
-    formatInOrder(&lines, t.root, 0, "H", 17)
+    t.formatInOrder(&lines, t.root, 0, "H", 9)
     return strings.Join(lines, "\n")
 }
 
-func formatInOrder(lines *[]string, node *BSTNode, height int, to string, length int) {
+func (t *BSTree) formatInOrder(lines *[]string, node *BSTNode, height int, to string, length int) {
     if node != nil {
-        formatInOrder(lines, node.Right, height+1, "v", length)
+        t.formatInOrder(lines, node.Right, height+1, "v", length)
         val := fmt.Sprintf("%s%d%s", to, node.Value, to)
         lenM := len(val)
         lenL := (length - lenM) / 2
         lenR := length - lenM - lenL
         val = strings.Repeat(" ", lenL) + val + strings.Repeat(" ", lenR)
         *lines = append(*lines, strings.Repeat(" ", height*length)+val)
-        formatInOrder(lines, node.Left, height+1, "^", length)
+        t.formatInOrder(lines, node.Left, height+1, "^", length)
     }
 }
