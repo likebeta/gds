@@ -258,11 +258,15 @@ func (t *AVLTree) deleteWithRecursion(root *AVLNode, value interface{}) *AVLNode
     return root
 }
 
-func (t *AVLTree) String() string {
+func (t *AVLTree) Str(width int) string {
     var lines []string
     lines = append(lines, fmt.Sprintf("AVL Tree - %d Node:", t.size))
-    t.formatInOrder(&lines, t.Root, 0, "H", 9)
+    t.formatInOrder(&lines, t.Root, 0, "H", width)
     return strings.Join(lines, "\n")
+}
+
+func (t *AVLTree) String() string {
+    return t.Str(9)
 }
 
 func (t *AVLTree) formatInOrder(lines *[]string, node *AVLNode, height int, to string, length int) {

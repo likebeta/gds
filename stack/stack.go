@@ -1,5 +1,9 @@
 package stack
 
+import (
+    "fmt"
+)
+
 type ArrayStack struct {
     arr []interface{}
 }
@@ -31,4 +35,12 @@ func (s *ArrayStack) Top() interface{} {
 
 func (s *ArrayStack) Peek() interface{} {
     return s.Top()
+}
+
+func (s *ArrayStack) Slice() []interface{} {
+    return s.arr
+}
+
+func (s *ArrayStack) String() string {
+    return fmt.Sprintf("%v", s.arr)
 }
