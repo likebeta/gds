@@ -82,7 +82,7 @@ func getRightMin(node *AVLNode) *AVLNode {
 }
 
 /*
-  		  A                  B
+          A                  B
          /                  / \
         B                  C   A
        / \                    /
@@ -98,7 +98,7 @@ func llAdjust(node *AVLNode) *AVLNode {
 }
 
 /*
-  	  A                      B
+      A                      B
        \                    / \
         B                  A   D
        / \                  \
@@ -114,7 +114,7 @@ func rrAdjust(node *AVLNode) *AVLNode {
 }
 
 /*
-		A
+        A
        /                   C
       B                  /   \
        \                B     A
