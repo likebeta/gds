@@ -2,7 +2,7 @@ package tree
 
 import (
     "fmt"
-    "likebeta/gds/util"
+    "gds/util"
     "strings"
 )
 
