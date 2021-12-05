@@ -2,7 +2,7 @@ package tree
 
 import (
     "fmt"
-    "github.com/likebeta/gds/util"
+    "likebeta/gds/util"
     "strings"
 )
 
@@ -82,11 +82,11 @@ func getRightMin(node *AVLNode) *AVLNode {
 }
 
 /*
-          A                  B
-         /                  / \
-        B                  C   A
-       / \                    /
-      C   D                  D
+       A                  B
+      /                  / \
+     B                  C   A
+    / \                    /
+   C   D                  D
 */
 func llAdjust(node *AVLNode) *AVLNode {
     b := node.Left
@@ -98,11 +98,11 @@ func llAdjust(node *AVLNode) *AVLNode {
 }
 
 /*
-      A                      B
-       \                    / \
-        B                  A   D
-       / \                  \
-      C   D                  C
+   A                      B
+    \                    / \
+     B                  A   D
+    / \                  \
+   C   D                  C
 */
 func rrAdjust(node *AVLNode) *AVLNode {
     b := node.Right
@@ -114,13 +114,13 @@ func rrAdjust(node *AVLNode) *AVLNode {
 }
 
 /*
-        A
-       /                   C
-      B                  /   \
-       \                B     A
-        C                \   /
-       / \                D E
-      D   E
+     A
+    /                   C
+   B                  /   \
+    \                B     A
+     C                \   /
+    / \                D E
+   D   E
 */
 func lrAdjust(node *AVLNode) *AVLNode {
     b := node.Left
